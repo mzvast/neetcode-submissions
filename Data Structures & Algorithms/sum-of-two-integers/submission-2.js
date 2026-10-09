@@ -1,0 +1,20 @@
+class Solution {
+    /**
+     * @param {number} a
+     * @param {number} b
+     * @return {number}
+     */
+    getSum(a, b) {
+        // a本位 xor ^
+        // b进位 and &
+        
+
+        while(b!== 0){
+            const carry = (a&b)<<1
+           a = (a^b)
+           b = carry;
+        }
+
+        return a;
+    }
+}
