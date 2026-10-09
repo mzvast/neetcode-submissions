@@ -1,0 +1,34 @@
+class Solution {
+    /**
+     * @param {number[][]} intervals
+     * @param {number[]} newInterval
+     * @return {number[][]}
+     */
+    insert(intervals, newInterval) {
+        const ans = [];
+        let [start, end] = newInterval;
+
+        for (let i = 0; i < intervals.length; i++) {
+            const [curStart, curEnd] = intervals[i];
+            // [][cur]
+            if (end < curStart) {
+                ans.push([start, end],...intervals.slice(i));
+                return ans;
+            }
+
+            // [cur][]
+            if (curEnd < start) {
+                ans.push([curStart, curEnd]);
+                continue;
+            }
+
+            // overlapping
+            start = Math.min(start, curStart);
+            end = Math.max(end, curEnd);
+        }
+
+        ans.push([start,end]);// merged till end
+
+        return ans;
+    }
+}
